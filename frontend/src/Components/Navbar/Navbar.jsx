@@ -53,12 +53,12 @@ const Navbar = () => {
                     <MdOutlineShoppingCart className="text-2xl text-gray-700 cursor-pointer hover:text-blue-600" />
                     <div className="flex items-center gap-4">
                         <button className="px-4 py-2 border rounded-md font-medium text-gray-700 hover:text-white hover:bg-gray-800">
-                            <Link to={'/login'}>
+                            <Link to={'/api/login'}>
                                 Login
                             </Link>
                         </button>
                         <button className="px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700">
-                            <Link to={'/sign-up'}>
+                            <Link to={'/api/sign-up'}>
                                 Sign up
                             </Link>
                         </button>

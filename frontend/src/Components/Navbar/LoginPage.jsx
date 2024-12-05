@@ -1,8 +1,37 @@
-import React from 'react';
-import { FcGoogle } from "react-icons/fc";
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
+    let fromData = {
+        Email: '',
+        Password: '',
+    };
+
+    const [input, setInput] = useState(fromData);
+
+   let navigate= useNavigate();
+
+    function signHandler(e) {
+        const { name, value } = e.target;
+        setInput({ ...input, [name]: value });
+    }
+
+    async function submithandler(e) {
+        e.preventDefault();
+        
+        const res = await axios.post('http://localhost:8000/api/login', input);
+        // if(res.data.token){
+        //     navigate('/admin')
+        // }else{
+        //     alert(res.data)
+        // }
+        // console.log(res.data);
+        localStorage.setItem('token',res.data.token); 
+
+        navigate('/');
+    }
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
             <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 items-center shadow-lg rounded-lg bg-white">
@@ -20,13 +49,25 @@ const LoginPage = () => {
                     <h2 className="text-2xl text-center font-semibold mb-4 text-gray-700">
                         Log in to continue your learning journey
                     </h2>
-                    <form>
+                    <form onSubmit={submithandler}>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                         </label>
                         <input
                             type="email"
                             id="email"
                             placeholder="Email"
+                            onChange={signHandler}
+                            value={input.fulltName}
+                            name='Email'
+                            className="mt-2 w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        />
+                        <input
+                            type="password"
+                            id="pasword"
+                            placeholder="Password"
+                            name='Password'
+                            onChange={signHandler}
+                            value={input.Password}
                             className="mt-2 w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-2 focus:ring-purple-500"
                         />
                         <button
@@ -54,7 +95,7 @@ const LoginPage = () => {
 
                     <div className="mt-6 text-center text-sm text-gray-500">
                         Don't have an account?{' '}
-                        <Link to={"/sign-up"} className="text-purple-600 underline">
+                        <Link to={"/api/sign-up"} className="text-purple-600 underline">
                             Sign up
                         </Link>
                     </div>

@@ -1,9 +1,13 @@
 let mongoose = require('mongoose');
 let express = require('express');
-const User = require('./model/user');
+const User = require('./model/User');
 let app = express();
-let bcrypt = require('bcryptjs');
 require('dotenv').config();
+let Sign = require('./Router/Sign');
+let Login = require('./Router/Login');
+let cors=require('cors');
+
+app.use(cors());
 
 // Middleware
 app.use(express.json());
@@ -23,53 +27,41 @@ app.get('/', (req, res) => {
 });
 
 // Sign Page
-app.post('/sign', async (req, res) => {
-    let { fullName, email, password } = req.body;
-
-    try {
-        let data = await User.findOne({ email: email });
-
-        // Check if the user already exists
-        if (data) {
-            return res.status(400).send('Already Account Created');
-        }
-
-        // Hash the password
-        let hashedPassword = await bcrypt.hash(password, 10);
-
-        // Save new user to the database
-        let dbUser = new User({
-            fullName: fullName,
-            email: email,
-            password: hashedPassword
-        });
-        await dbUser.save();
-        res.status(201).send("Your account has been successfully created");
-    } catch (error) {
-        res.status(500).send('Server error');
-    }
-});
-
+app.use('/api', Sign)
 
 // Login  Page
-app.post('/login', async (req, res) => {
-    let loginData = req.body;
-    let data = await User.findOne({ email: loginData.email });
+app.use('/api', Login)
 
-    if (data) {
-        let validPass = await bcrypt.compare(loginData.password, data.password)
-        if (validPass) {
-            res.send('Loginnn SucessFullyy................!!!!!!!!!!')
+
+function cheackRole(role) {
+    return (req, res, next) => {
+        let token = req.headers.authorization;
+
+        if (!token) {
+            return res.send('unAuthorization User...........!!!')
         } else {
-            res.send('Invalidd Password..........!!!')
+            let decodeToken = jwt.verify(token, 'wduohuodihidhind')
+            if (decodeToken.role !== role) {
+                res.send('Access Denided........!!!!')
+            } else {
+                next();
+            }
         }
-    } else {
-        res.send('Phle Account Create Kro .......!!!!!!')
     }
+}
+
+// Admin Page.
+app.get('/admin', cheackRole('Admin'), (req, res) => {
+    res.send("Admin Access This Page");
+})
+
+// User Page.
+app.get('/student', cheackRole('Student'), (req, res) => {
+    res.send("Student Access This Page");
 })
 
 
-const port = process.env.PORT || 3000; // Default to 3000 if PORT is not set
+const port = process.env.PORT || 3000; 
 app.listen(port, () => {
     console.log(`Server started on Port ${port}`);
 });
