@@ -1,9 +1,9 @@
 // Login Form.
-let express=require('express');
-let User=require('../model/User')
-let router=express.Router();
-let jwt=require('jsonwebtoken')
-let bcypt= require("bcryptjs")
+let express = require('express');
+let User = require('../model/User')
+let router = express.Router();
+let jwt = require('jsonwebtoken')
+let bcypt = require("bcryptjs")
 
 router.post('/login', async (req, res) => {
     let user = req.body;
@@ -16,14 +16,14 @@ router.post('/login', async (req, res) => {
         if (validPass) {
             // JWT token generate........
             let token = jwt.sign({ data: data.Email, role: data.role }, 'nsjbjbsbusuhwihiwh', { expiresIn: '1h' });
-            console.log(token ,"JWt tokennn");
-            res.send({token,msg:"Loginn SuccessFully....!!"});
+            console.log(token, "JWt tokennn");
+            res.send({ token, msg: "Loginn SuccessFully....!!" });
         } else {
-            res.send('Invalid Password');
+            res.status(401).send({ message: 'Invalid password' });
         }
     } else {
         res.send("Please First registeration and then Login")
     }
 })
 
-module.exports=router;
+module.exports = router;

@@ -10,7 +10,7 @@ const LoginPage = () => {
 
     const [input, setInput] = useState(fromData);
 
-   let navigate= useNavigate();
+    let navigate = useNavigate();
 
     function signHandler(e) {
         const { name, value } = e.target;
@@ -19,17 +19,19 @@ const LoginPage = () => {
 
     async function submithandler(e) {
         e.preventDefault();
-        
-        const res = await axios.post('http://localhost:8000/api/login', input);
-        // if(res.data.token){
-        //     navigate('/admin')
-        // }else{
-        //     alert(res.data)
-        // }
-        // console.log(res.data);
-        localStorage.setItem('token',res.data.token); 
 
-        navigate('/');
+        const res = await axios.post('http://localhost:8000/api/login', input);
+        // console.log(res);
+
+
+        if (res.status === 200) {
+            navigate('/');
+        } else {
+            console.log(res.massage);
+        }
+
+        // console.log(res.data.token);
+        localStorage.setItem('token', res.data.token);
     }
 
     return (
@@ -81,15 +83,15 @@ const LoginPage = () => {
                     <div className="my-4 text-center text-gray-500">------------------ Other log in options ------------------</div>
                     <div className="flex justify-around mx-12">
                         <button className="flex items-center justify-center gap-2 w-10 h-10 border border-gray-300">
-                        {/* <FcGoogle /> */}
-                        <img src="https://cdn-teams-slug.flaticon.com/google.jpg" className="h-7"  alt="Google" />
+                            {/* <FcGoogle /> */}
+                            <img src="https://cdn-teams-slug.flaticon.com/google.jpg" className="h-7" alt="Google" />
 
                         </button>
                         <button className="flex items-center justify-center w-10 h-10 border border-gray-300 ">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6cE21uCf_X-Tr7eUOE77XI9e_Zos6sEyyGw&s" className="h-6"  alt="Facebook" />
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6cE21uCf_X-Tr7eUOE77XI9e_Zos6sEyyGw&s" className="h-6" alt="Facebook" />
                         </button>
                         <button className="flex items-center justify-center w-10 h-10 border border-gray-300 ">
-                            <img src="https://cdn-icons-png.flaticon.com/512/0/747.png"  className="h-6" alt="Apple" />
+                            <img src="https://cdn-icons-png.flaticon.com/512/0/747.png" className="h-6" alt="Apple" />
                         </button>
                     </div>
 

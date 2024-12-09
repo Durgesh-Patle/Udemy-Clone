@@ -32,7 +32,7 @@ const Navbar = () => {
                 <div className="flex items-center gap-6">
                     <div className="hidden md:flex gap-4">
                         <Link
-                            to="/plans"
+                            to="/pricing"
                             className="text-gray-700 font-medium hover:text-blue-600"
                         >
                             Plans & Pricing
@@ -44,7 +44,7 @@ const Navbar = () => {
                             Udemy Business
                         </Link>
                         <Link
-                            to="/teach"
+                            to="/teaching"
                             className="text-gray-700 font-medium hover:text-blue-600"
                         >
                             Teach on Udemy

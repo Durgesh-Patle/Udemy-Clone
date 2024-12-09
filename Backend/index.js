@@ -5,6 +5,7 @@ let app = express();
 require('dotenv').config();
 let Sign = require('./Router/Sign');
 let Login = require('./Router/Login');
+let forget=require('./Router/Forget')
 let cors=require('cors');
 
 app.use(cors());
@@ -26,11 +27,13 @@ app.get('/', (req, res) => {
     res.send("Home Page");
 });
 
-// Sign Page
+// Sign Page Using Middleware.
 app.use('/api', Sign)
 
-// Login  Page
+// Login Page Using Middleware.
 app.use('/api', Login)
+
+app.use('/api',forget);
 
 
 function cheackRole(role) {

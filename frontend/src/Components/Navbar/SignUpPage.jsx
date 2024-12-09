@@ -6,7 +6,7 @@ const SignUpPage = () => {
   const formData = {
     fullName: '',
     Email: '',
-    Password: '',
+    Password: ''
   };
 
   const [input, setInput] = useState(formData);
@@ -103,13 +103,13 @@ const SignUpPage = () => {
           {/* Terms and Privacy */}
           <p className="text-sm text-gray-600 mt-4">
             By signing up, you agree to our{" "}
-            <a href="#" className="text-purple-600 underline">
+            <Link to={'#'} className="text-purple-600 underline">
               Terms of Use
-            </a>{" "}
+            </Link>{" "}
             and{" "}
-            <a href="#" className="text-purple-600 underline">
+            <Link href="#" className="text-purple-600 underline">
               Privacy Policy
-            </a>
+            </Link>
             .
           </p>
 
