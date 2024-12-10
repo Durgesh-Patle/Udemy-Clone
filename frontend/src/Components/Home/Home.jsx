@@ -5,9 +5,7 @@ import Footer from '../Footer/Footer'
 const Home = () => {
   return (
     <div>
-        {/* Home page */}
-      {/* <ImageSlider/> */}
-      {/* <Footer/> */}
+      
     </div>
   )
 }

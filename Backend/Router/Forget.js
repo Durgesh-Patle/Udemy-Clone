@@ -4,17 +4,18 @@ const crypto = require('crypto');
 let { sendEmail } = require('../utils/sendEmail');
 const User = require('../model/User');
 
-router.post('/forgot-password', async (req, res) => {
+router.post('/forget-password', async (req, res) => {
     const { Email } = req.body;
-    
     // console.log(Email);
     
     try {
         const user = await User.findOne({ Email });
+        // User Not Find...
         if (!user) {
             return res.status(404).send('User not found');
         }
 
+        //  User Find..
         const resetToken = crypto.randomBytes(20).toString('hex');
         user.resetToken = resetToken;
         user.resetTokenExpiry = Date.now() + 3600000;

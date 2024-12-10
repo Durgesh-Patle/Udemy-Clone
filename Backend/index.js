@@ -6,6 +6,7 @@ require('dotenv').config();
 let Sign = require('./Router/Sign');
 let Login = require('./Router/Login');
 let forget=require('./Router/Forget')
+let Reset=require('./Router/Reset')
 let cors=require('cors');
 
 app.use(cors());
@@ -33,7 +34,11 @@ app.use('/api', Sign)
 // Login Page Using Middleware.
 app.use('/api', Login)
 
+// forget Password.
 app.use('/api',forget);
+
+// Reset Password.
+app.use('/api',Reset)
 
 
 function cheackRole(role) {

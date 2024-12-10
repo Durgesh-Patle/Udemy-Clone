@@ -6,7 +6,8 @@ const SignUpPage = () => {
   const formData = {
     fullName: '',
     Email: '',
-    Password: ''
+    Password: '',
+    role:''
   };
 
   const [input, setInput] = useState(formData);
@@ -53,6 +54,7 @@ const SignUpPage = () => {
               value={input.fullName}
               placeholder="Full name"
               className="mt-2 w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              required
             />
 
             {/* Email */}
@@ -64,6 +66,7 @@ const SignUpPage = () => {
               value={input.Email}
               placeholder="Email"
               className="mt-2 w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              required
             />
 
             {/* Password */}
@@ -75,6 +78,19 @@ const SignUpPage = () => {
               value={input.Password}
               placeholder="Password"
               className="mt-2 w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              required
+            />
+
+            {/* Role */}
+            <input
+              type="text"
+              id="role"
+              name="role"
+              onChange={signHandler}
+              value={input.role}
+              placeholder="Role"
+              className="mt-2 w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              required
             />
 
             <hr /> <hr />
@@ -87,7 +103,7 @@ const SignUpPage = () => {
                 className="h-4 w-4 text-purple-600 border-gray-300 rounded"
               />
               <label htmlFor="offers" className="ml-2 text-sm text-gray-600">
-                Send me special offers , learning tips.
+                Send me special offers.
               </label>
             </div>
 
