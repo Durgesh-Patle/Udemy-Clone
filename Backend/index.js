@@ -7,6 +7,7 @@ let Sign = require('./Router/Sign');
 let Login = require('./Router/Login');
 let forget=require('./Router/Forget')
 let Reset=require('./Router/Reset')
+let Course=require('./Router/Course')
 let cors=require('cors');
 
 app.use(cors());
@@ -39,6 +40,9 @@ app.use('/api',forget);
 
 // Reset Password.
 app.use('/api',Reset)
+
+// Courses 
+app.use('/api',Course)
 
 
 function cheackRole(role) {
