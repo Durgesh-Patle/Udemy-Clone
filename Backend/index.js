@@ -44,33 +44,15 @@ app.use('/api',Reset)
 // Courses 
 app.use('/api',Course)
 
-
-function cheackRole(role) {
-    return (req, res, next) => {
-        let token = req.headers.authorization;
-
-        if (!token) {
-            return res.send('unAuthorization User...........!!!')
-        } else {
-            let decodeToken = jwt.verify(token, 'wduohuodihidhind')
-            if (decodeToken.role !== role) {
-                res.send('Access Denided........!!!!')
-            } else {
-                next();
-            }
-        }
-    }
-}
-
 // Admin Page.
-app.get('/admin', cheackRole('Admin'), (req, res) => {
-    res.send("Admin Access This Page");
-})
+// app.get('/admin', cheackRole('Admin'), (req, res) => {
+//     res.send("Admin Access This Page");
+// })
 
 // User Page.
-app.get('/student', cheackRole('Student'), (req, res) => {
-    res.send("Student Access This Page");
-})
+// app.get('/instructors', cheackRole('Instructors'), (req, res) => {
+//     res.send("Student Access This Page");
+// })
 
 
 const port = process.env.PORT || 3000; 

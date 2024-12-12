@@ -1,9 +1,9 @@
 let express = require('express');
 let router = express.Router();
 const Course = require('../model/courseModel');
+let roleCheack = require('../middlewares/roleCheck')
 
-
-router.post('/course', async (req, res) => {
+router.post('/course', roleCheack(['Admin','Instructors']), async (req, res) => {
     let course = req.body;
     // console.log(course);
 
@@ -28,5 +28,9 @@ router.get('/get-course', async (req, res) => {
 
     res.send({ course: getCourse });
 })
+
+// router.post('/course', roleCheck('Admin'), (req, res) => {
+//     res.send('Course added successfully.');
+// });
 
 module.exports = router;

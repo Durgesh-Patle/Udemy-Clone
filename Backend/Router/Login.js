@@ -16,6 +16,7 @@ router.post('/login', async (req, res) => {
         if (validPass) {
             // JWT token generate........
             let token = jwt.sign({ data: data.Email, role: data.role }, 'nsjbjbsbusuhwihiwh', { expiresIn: '1h' });
+            
             console.log(token, "JWt tokennn");
             res.send({ token, msg: "Loginn SuccessFully....!!" });
         } else {

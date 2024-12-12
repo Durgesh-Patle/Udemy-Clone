@@ -9,6 +9,7 @@ import PricingPlans from './Components/Home/PricingPlans'
 import DemoForm from './Components/Home/DemoForm'
 import HomeTeach from './Components/TechOnUdemy/HomeTeach'
 import ForgotPass from './Components/Navbar/ForgotPass'
+import ResetPass from './Components/Navbar/ResetPass'
 
 function App() {
 
@@ -24,6 +25,10 @@ function App() {
         <Route path='/business' element={<DemoForm />} />
         <Route path='/teaching' element={<HomeTeach/>}/>
         <Route path='/api/forget-password' element={<ForgotPass/>}/>
+
+        <Route path='/api/reset-password/:token' element={<ResetPass/>} />
+
+
       </Routes>
       {/* <Footer /> */}
     </>
