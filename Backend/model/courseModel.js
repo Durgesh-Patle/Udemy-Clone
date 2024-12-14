@@ -27,6 +27,9 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    reason: {
+        type: String
+    },
     // instructor: { 
     //     type: mongoose.Schema.Types.ObjectId, 
     //     ref: 'User', 

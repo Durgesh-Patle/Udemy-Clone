@@ -26,11 +26,9 @@ function App() {
         <Route path='/teaching' element={<HomeTeach/>}/>
         <Route path='/api/forget-password' element={<ForgotPass/>}/>
 
-        <Route path='/api/reset-password/:token' element={<ResetPass/>} />
-
-
+        <Route path='/reset-password/:token' element={<ResetPass />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </>
   )
 }

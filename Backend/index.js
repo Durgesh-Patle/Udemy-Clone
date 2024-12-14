@@ -8,6 +8,7 @@ let Login = require('./Router/Login');
 let forget=require('./Router/Forget')
 let Reset=require('./Router/Reset')
 let Course=require('./Router/Course')
+let Status=require('./Router/StatusCheack')
 let cors=require('cors');
 
 app.use(cors());
@@ -43,6 +44,8 @@ app.use('/api',Reset)
 
 // Courses 
 app.use('/api',Course)
+
+app.use('/api',Status)
 
 // Admin Page.
 // app.get('/admin', cheackRole('Admin'), (req, res) => {

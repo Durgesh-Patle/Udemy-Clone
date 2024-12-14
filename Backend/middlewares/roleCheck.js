@@ -6,15 +6,15 @@ function roleCheck(role) {
 
         if (!token) {
             return res.status(401).send('Unauthorized User...........!!!');
-        }
-        const decodedToken = jwt.verify(token, 'nsjbjbsbusuhwihiwh');
-        console.log(decodedToken,role,'DecodedToken');
-        
-        // if (!role.includes(decodedToken.role)) {
-        if (decodedToken.role !== role) {
-            return res.send('Access Denied........!!!!');
         } else {
-            next();
+            const decodedToken = jwt.verify(token, 'nsjbjbsbusuhwihiwh');
+            console.log(decodedToken, role, 'DecodedToken');
+
+            if (!role.includes(decodedToken.role)) {
+                return res.send('Access Denied........!!!!');
+            } else {
+                next();
+            }
         }
     }
 };

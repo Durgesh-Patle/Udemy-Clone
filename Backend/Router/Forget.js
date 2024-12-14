@@ -7,7 +7,7 @@ const User = require('../model/User');
 router.post('/forget-password', async (req, res) => {
     const { Email } = req.body;
     // console.log(Email);
-    
+
     try {
         const user = await User.findOne({ Email });
         // User Not Find...
@@ -21,11 +21,11 @@ router.post('/forget-password', async (req, res) => {
         user.resetTokenExpiry = Date.now() + 3600000;
         await user.save();
 
-        const resetUrl = `${req.protocol}://${req.get('host')}/api/reset-password/${resetToken}`;
-        // const resetUrl = `http://localhost:5173/api/reset-password/${resetToken}`;
-        
+        // const resetUrl = `${req.protocol}://${req.get('host')}/api/reset-password/${resetToken}`;
+        const resetUrl = `http://localhost:5173/api/reset-password/${resetToken}`;
+
         console.log(resetUrl);
-        
+
 
         await sendEmail(
             user.Email,

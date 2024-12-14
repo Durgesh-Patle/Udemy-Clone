@@ -4,17 +4,19 @@ import axios from 'axios'; // Ensure axios is imported
 
 const ResetPass = () => {
     let { token } = useParams();
+    console.log(token);
 
-    const [newPassword, setPassword] = useState('');
+    let newPass = '';
+    const [password, setPassword] = useState(newPass);
 
     const signHandler = (e) => {
-        setPassword(e.target.value); 
+        setPassword(e.target.value);
     };
 
     const submithandler = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`http://localhost:5173/api/reset-password/${token}`, {newPassword});
+            const res = await axios.post(`http://localhost:5173/api/reset-password/${token}`, { newPassword: password });
             console.log(res.data);
         } catch (error) {
             console.error('Error resetting password:', error.response?.data || error.message);
@@ -29,11 +31,11 @@ const ResetPass = () => {
                 </h2>
                 <form onSubmit={submithandler}>
                     <input
-                        type="password" 
+                        type="password"
                         placeholder="Enter new Password..."
                         onChange={signHandler}
-                        value={newPassword} 
-                        name="newPassword"
+                        name="Password"
+                        value={password.Password}
                         className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                         required
                     />

@@ -9,11 +9,13 @@ const Navbar = () => {
             <div className="container mx-auto flex items-center justify-between p-4">
                 {/* Logo and Categories */}
                 <div className="flex items-center gap-6">
-                    <img
-                        src="logo-udemy.svg"
-                        alt="Udemy Logo"
-                        className="h-8 cursor-pointer"
-                    />
+                    <Link to={'/'}>
+                        <img
+                            src="logo-udemy.svg"
+                            alt="Udemy Logo"
+                            className="h-8 cursor-pointer"
+                        />
+                    </Link>
                     <p className="text-gray-700 font-medium cursor-pointer hover:text-gray-900">
                         Categories
                     </p>
