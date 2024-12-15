@@ -3,7 +3,7 @@ let router = express.Router();
 const Course = require('../model/courseModel');
 let roleCheack = require('../middlewares/roleCheck')
 
-router.post('/course', roleCheack(['Admin', 'Instructors']), async (req, res) => {
+router.post('/add-course', roleCheack(['Admin', 'Instructors']), async (req, res) => {
     let course = req.body;
     // console.log(course);
 

@@ -9,6 +9,7 @@ let forget=require('./Router/Forget')
 let Reset=require('./Router/Reset')
 let Course=require('./Router/Course')
 let Status=require('./Router/StatusCheack')
+let Review=require('./Router/Review')
 let cors=require('cors');
 
 app.use(cors());
@@ -45,8 +46,11 @@ app.use('/api',Reset)
 // Courses 
 app.use('/api',Course)
 
+// Status Cheack Pending Reject Approv
 app.use('/api',Status)
 
+
+app.use('/api',Review)
 // Admin Page.
 // app.get('/admin', cheackRole('Admin'), (req, res) => {
 //     res.send("Admin Access This Page");

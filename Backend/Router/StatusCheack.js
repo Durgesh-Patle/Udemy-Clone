@@ -16,7 +16,7 @@ const approveCourse = async (req, res) => {
     }
     course.status = "Approved";
     await course.save();
-    res.status(200).send("Course Approved!");
+    res.send("Course Approved!");
 };
 
 // Reject Function.
