@@ -1,7 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let Course = require('../model/courseModel');
-let roleCheck = require('../middlewares/roleCheck');
+let { Role } = require('../middlewares/roleCheck');
 
 // Approved Function.
 const approveCourse = async (req, res) => {
@@ -36,7 +36,7 @@ const rejectCourse = async (req, res) => {
     res.send({ msg: "Course Rejected!", reson: "Course is Froud !!" });
 };
 
-router.post('/course-status', roleCheck(['Admin']), async (req, res) => {
+router.post('/course-status', Role('Admin'), async (req, res) => {
     let { action, _id } = req.body;
 
     if (!action || !_id) {

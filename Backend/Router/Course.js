@@ -1,9 +1,11 @@
 let express = require('express');
 let router = express.Router();
 const Course = require('../model/courseModel');
-let roleCheack = require('../middlewares/roleCheck')
+let {protect} = require('../middlewares/roleCheck')
+// let roleCheack = require('../middlewares/roleCheck')
 
-router.post('/add-course', roleCheack(['Admin', 'Instructors']), async (req, res) => {
+router.post('/add-course', protect, async (req, res) => {
+    // router.post('/add-course', roleCheck(['Admin', 'Instructors']), async (req, res) => {
     let course = req.body;
     // console.log(course);
 
@@ -22,6 +24,7 @@ router.post('/add-course', roleCheack(['Admin', 'Instructors']), async (req, res
     res.send('Succsessfully Course add');
 
 })
+
 router.get('/get-course', async (req, res) => {
     const getCourse = await Course.find();
     res.send(getCourse);

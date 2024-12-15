@@ -1,17 +1,52 @@
-let jwt = require('jsonwebtoken');
-let User = require('../model/User')
+const jwt = require('jsonwebtoken');
+const User = require('../model/User');
 
-function roleCheck(role) {
+
+
+function tokenCheack(req,res,next){
+    let token=req.headers.authorization;
+    if(token){
+        next();
+    }else{
+        res.send('Your Account Are Not Created So You Are Not Coommet.')
+    }
+}
+
+
+const protect = async (req, res, next) => {
+    let token;
+    if (req.headers.authorization) {
+        try {
+            token = req.headers.authorization;
+            const decodedToken = jwt.verify(token, process.env.LOGINKEY);
+            req.user = await User.findById(decodedToken.id).select('-password');
+            console.log(req.user);
+            
+            if (!req.user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+            next(); 
+        } catch (error) {
+            console.error('Error verifying token:', error.message);
+            return res.status(401).json({ message: 'Not authorized, token failed' });
+        }
+    } else {
+        return res.status(401).json({ message: 'Not authorized, no token' });
+    }
+};
+
+function Role(role) {
     return (req, res, next) => {
         const token = req.headers.authorization;
-        
+
         if (!token) {
             return res.send('Unauthorized User...........!!!');
         } else {
-            const decodedToken = jwt.verify(token, 'nsjbjbsbusuhwihiwh');
-            req.user = User.findById(decodedToken.id).select('-password');
-            console.log(req.user,"Useerrrrrrrrr");
+            const decodedToken = jwt.verify(token, process.env.LOGINKEY);
+            console.log(decodedToken,"Decoded Tokennnnnnnnnnnnn!!!!!!!");
             
+            req.user = User.findById(decodedToken.id).select('-password');
+
             console.log(decodedToken, role, 'DecodedToken');
 
             if (!role.includes(decodedToken.role)) {
@@ -23,37 +58,56 @@ function roleCheck(role) {
     }
 };
 
+module.exports = { protect,Role,tokenCheack };
 
-module.exports = roleCheck
 
-// 2......................................
+
+
+// 1......................................
 // const jwt = require('jsonwebtoken');
 // const User = require('../model/User');
 
-
-// const protect = async (req, res, next) => {
-//   let token;
-
-//   if (req.headers.authorization) {
-//     try {
-//       token = req.headers.authorization;
-//       const decoded = jwt.verify(token,'nsjbjbsbusuhwihiwh');
-//       console.log(decoded,"decoded token");
-      
-//       req.user = await User.findById(decoded.id).select('-password');
-//       next();
-//     } catch (error) {
-//       res.status(401).json({ message: 'Not authorized, token failed' });
-//     }
-//   }
+// // Check if token exists
+// const tokenCheck = (req, res, next) => {
+//   const token = req.headers.authorization;
 
 //   if (!token) {
-//     res.status(401).json({ message: 'Not authorized, no token' });
+//     return res.status(401).json({ message: 'Unauthorized, token is missing' });
+//   }
+//   next();
+// };
+
+// // Protect routes by verifying JWT
+// const protect = async (req, res, next) => {
+//   let token = req.headers.authorization;
+
+//   if (!token) {
+//     return res.status(401).json({ message: 'Unauthorized, no token' });
+//   }
+
+//   try {
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'default_secret');
+//     console.log(decoded, 'decoded token');
+
+//     req.user = await User.findById(decoded.id).select('-password');
+//     if (!req.user) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
+
+//     console.log(req.user);
+//     next();
+//   } catch (error) {
+//     console.error(error);
+//     res.status(401).json({ message: 'Unauthorized, token invalid' });
 //   }
 // };
 
-
+// // Admin-only route protection
 // const adminProtect = (req, res, next) => {
+//   if (!req.user) {
+//     return res.status(401).json({ message: 'Unauthorized, user not found' });
+//   }
+
 //   if (req.user.role === 'admin') {
 //     next();
 //   } else {
@@ -61,5 +115,36 @@ module.exports = roleCheck
 //   }
 // };
 
-// module.exports = { protect, adminProtect };
+// module.exports = { tokenCheck, protect, adminProtect };
 
+
+// 2.................................................................Right Code .....
+// let jwt = require('jsonwebtoken');
+// let User = require('../model/User')
+
+// function roleCheck(role) {
+//     return (req, res, next) => {
+//         const token = req.headers.authorization;
+
+//         if (!token) {
+//             return res.send('Unauthorized User...........!!!');
+//         } else {
+//             const decodedToken = jwt.verify(token, process.env.LOGINKEY);
+//             console.log(decodedToken,"Decoded Tokennnnnnnnnnnnn!!!!!!!");
+            
+//             req.user = await User.findById(decodedToken.id).select('-password');
+//             console.log(req.user, "Useerrrrrrrrr");
+
+//             console.log(decodedToken, role, 'DecodedToken');
+
+//             if (!role.includes(decodedToken.role)) {
+//                 return res.send('Access Denied........!!!!');
+//             } else {
+//                 next();
+//             }
+//         }
+//     }
+// };
+
+
+// module.exports = roleCheck
