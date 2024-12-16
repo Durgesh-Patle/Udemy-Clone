@@ -1,8 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../model/User');
 
-
-
 function tokenCheack(req,res,next){
     let token=req.headers.authorization;
     if(token){
@@ -11,7 +9,6 @@ function tokenCheack(req,res,next){
         res.send('Your Account Are Not Created So You Are Not Coommet.')
     }
 }
-
 
 const protect = async (req, res, next) => {
     let token;
