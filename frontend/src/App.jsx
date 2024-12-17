@@ -10,6 +10,7 @@ import DemoForm from './Components/Home/DemoForm'
 import HomeTeach from './Components/TechOnUdemy/HomeTeach'
 import ForgotPass from './Components/Navbar/ForgotPass'
 import ResetPass from './Components/Navbar/ResetPass'
+import AllCourse from './Components/AllCourses/AllCourse'
 
 function App() {
 
@@ -25,6 +26,8 @@ function App() {
         <Route path='/business' element={<DemoForm />} />
         <Route path='/teaching' element={<HomeTeach/>}/>
         <Route path='/api/forget-password' element={<ForgotPass/>}/>
+
+        <Route path='/api/all-course' element={<AllCourse/>}/>
 
         <Route path='/reset-password/:token' element={<ResetPass />} />
       </Routes>

@@ -11,6 +11,7 @@ let Course=require('./Router/Course')
 let Status=require('./Router/StatusCheack')
 let Review=require('./Router/Review')
 let GetUser=require('./Router/Getuser')
+let AllCourse=require('./Router/AllCourse')
 let cors=require('cors');
 
 app.use(cors());
@@ -55,6 +56,9 @@ app.use('/api',Review)
 
 // All Users Seee. 
 app.use('/api',GetUser)
+
+// All AllCourses Seee. 
+app.use('/api',AllCourse)
 
 
 // Admin Page.
