@@ -12,6 +12,7 @@ let Status=require('./Router/StatusCheack')
 let Review=require('./Router/Review')
 let GetUser=require('./Router/Getuser')
 let AllCourse=require('./Router/AllCourse')
+let mainAdmin=require('./Router/MainAdmin')
 let cors=require('cors');
 
 app.use(cors());
@@ -38,6 +39,9 @@ app.use('/api', Sign)
 
 // Login Page Using Middleware.
 app.use('/api', Login)
+
+// Main-Admin
+app.use('/api',mainAdmin)
 
 // forget Password.
 app.use('/api',forget);

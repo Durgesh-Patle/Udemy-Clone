@@ -22,12 +22,14 @@ router.post('/add-course', Role('Admin'), protect, async (req, res) => {
 
     await newCourse.save();
 
-    const users = await User.find();
-    // console.log(users, "Userrrrrrr");
+    const users = await User.find({ role: 'Student' });
+    console.log(users, "Userrrrrrr");
 
-    const emailList = users
+    // if (users.role === 'Student') {
+    var emailList = users
         .map((user) => user.Email)
         .filter((email) => email);
+    // }
 
 
     // console.log(emailList, "EmailList");
