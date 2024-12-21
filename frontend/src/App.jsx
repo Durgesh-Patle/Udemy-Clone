@@ -10,7 +10,9 @@ import DemoForm from './Components/Home/DemoForm'
 import HomeTeach from './Components/TechOnUdemy/HomeTeach'
 import ForgotPass from './Components/Navbar/ForgotPass'
 import ResetPass from './Components/Navbar/ResetPass'
-import AllCourse from './Components/AllCourses/AllCourse'
+import CourseCreation from './Components/CourseCreationForm/CourseCreation'
+import CourseDetails from './Components/DetailsCourse/CourseDetails'
+import Carts from './Components/AddCarts/Carts'
 
 function App() {
 
@@ -24,12 +26,16 @@ function App() {
 
         <Route path='/pricing' element={<PricingPlans />} />
         <Route path='/business' element={<DemoForm />} />
-        <Route path='/teaching' element={<HomeTeach/>}/>
-        <Route path='/api/forget-password' element={<ForgotPass/>}/>
+        <Route path='/teaching' element={<HomeTeach />} />
+        <Route path='/api/forget-password' element={<ForgotPass />} />
 
-        <Route path='/api/all-course' element={<AllCourse/>}/>
+        <Route path='/add-course' element={<CourseCreation />} />
 
         <Route path='/reset-password/:token' element={<ResetPass />} />
+
+        <Route path='/carts' element={<Carts />} />
+
+        <Route path='/course-details/:id' element={<CourseDetails />} />
       </Routes>
       <Footer />
     </>

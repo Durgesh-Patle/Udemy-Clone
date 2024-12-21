@@ -1,14 +1,22 @@
 import React, { useContext, useState } from 'react';
 import Context from '../../Context';
+import { useNavigate } from 'react-router-dom';
 
 const Courses = () => {
     const { courses } = useContext(Context);
+    const navigate = useNavigate();
+
     const [selectedCategory, setSelectedCategory] = useState("All Courses");
 
     const filteredCourses =
         selectedCategory === "All Courses"
             ? courses
             : courses.filter(course => course.category === selectedCategory);
+
+
+    const detailsFun = (id) => {
+        navigate(`/course-details/${id}`);
+    }
 
     return (
         <>
@@ -25,11 +33,10 @@ const Courses = () => {
                         <button
                             key={index}
                             onClick={() => setSelectedCategory(category)}
-                            className={`text-[19px] font-bold ${
-                                selectedCategory === category
-                                    ? "text-black"
-                                    : "text-[#6a6f73]"
-                            } hover:text-black`}
+                            className={`text-[19px] font-bold ${selectedCategory === category
+                                ? "text-black"
+                                : "text-[#6a6f73]"
+                                } hover:text-black`}
                         >
                             {category}
                         </button>
@@ -43,19 +50,21 @@ const Courses = () => {
                         No courses available for this category.
                     </p>
                 ) : (
-                    <div className="flex space-x-4">
+                    <div className="flex space-x-4" >
                         {filteredCourses.map((course, index) => (
                             <div
                                 key={index}
-                                className="min-w-[280px] w-[280px] bg-white border border-gray-300 rounded-lg shadow-md overflow-hidden"
+                                className="min-w-[280px] w-[280px] bg-white border border-gray-300 rounded-lg shadow-md overflow-hidden cursor-pointer"
+                                onClick={() => detailsFun(index)}
                             >
-                                <img
-                                    src={course.videos}
+                                <video
+                                    src={course?.videos[0]}
                                     alt={course.title}
-                                    onError={(e) =>
-                                        (e.target.src = "path/to/placeholder-image.jpg")
-                                    }
+                                    // onError={(e) =>
+                                    //     (e.target.src = "path/to/placeholder-image.jpg")
+                                    // }
                                     className="w-full h-36 object-cover"
+                                    controls
                                 />
 
                                 <div className="p-4">

@@ -1,73 +1,75 @@
 let express = require('express');
 let router = express.Router();
 const Course = require('../model/courseModel');
-let { Role, protect } = require('../middlewares/roleCheck');
 const User = require('../model/User');
 let { sendEmail } = require('../utils/sendEmail');
-// let roleCheack = require('../middlewares/roleCheck')
-
-router.post('/add-course', Role('Admin'), protect, async (req, res) => {
-    let course = req.body;
-    let newCourse = new Course({
-        title: course.title,
-        description: course.description,
-        category: course.category,
-        price: course.price,
-        level: course.level,
-        language: course.language,
-        status: course.status || 'Pending',
-        videos: course.videos,
-        resources: course.resources
-    });
-
-    await newCourse.save();
-
-    const users = await User.find({ role: 'Student' });
-    console.log(users, "Userrrrrrr");
-
-    // if (users.role === 'Student') {
-    var emailList = users
-        .map((user) => user.Email)
-        .filter((email) => email);
-    // }
+let { protect, Role } = require('../middlewares/roleCheck');
 
 
-    // console.log(emailList, "EmailList");
+router.post('/add-course', protect, Role('Admin'), async (req, res) => {
+    try {
+        const course = req.body;
 
-    const subject = `New Course Added: ${course.title}`;
-    const text = `
-          Hello,
+        if (!course.title || !course.description || !course.category || !course.price) {
+            return res.status(400).json({ error: 'Missing required fields' });
+        }
 
-          A new course titled "${course.title}" has been added to our platform.
+        const newCourse = new Course({
+            title: course.title,
+            description: course.description,
+            category: course.category,
+            price: course.price,
+            level: course.level,
+            language: course.language,
+            status: course.status || 'Pending',
+            videos: course.videos,
+            resources: course.resources
+        });
 
-          Category: ${course.category}
-          Price: $${course.price}
-          Level: ${course.level}
-          Language: ${course.language}
+        await newCourse.save();
 
-          Check it out on our website!
+        // Fetch students' email addresses
+        const users = await User.find({ role: 'Student' });
+        const emailList = users.map(user => user.Email).filter(email => email);
 
-          Regards,
-          Udemy Online Classes
-        `
+        // Send email notifications
+        const subject = `New Course Added: ${course.title}`;
+        const text = `
+            Hello,
 
-    for (const Email of emailList) {
-        // console.log(subject, text, "Subject Or Text  ");
+            A new course titled "${course.title}" has been added to our platform.
 
-        await sendEmail(Email, subject, text);
+            Category: ${course.category}
+            Price: $${course.price}
+            Level: ${course.level}
+            Language: ${course.language}
+
+            Check it out on our website!
+
+            Regards,
+            Udemy Online Classes
+        `;
+
+        for (const email of emailList) {
+            await sendEmail(email, subject, text);
+        }
+
+        res.status(201).json({ message: 'Course added successfully and emails sent.' });
+    } catch (error) {
+        console.error('Error adding course:', error);
+        res.status(500).json({ error: 'An error occurred while adding the course.' });
     }
-
-    res.status(201).json({ message: 'Course added successfully and emails sent.' });
 });
 
 
-module.exports = router;
-
 router.get('/get-course', async (req, res) => {
-    const getCourse = await Course.find();
-    res.send(getCourse);
-})
+    try {
+        const courses = await Course.find();
+        res.status(200).json(courses);
+    } catch (error) {
+        console.error('Error fetching courses:', error);
+        res.status(500).json({ error: 'An error occurred while fetching courses.' });
+    }
+});
 
-// router.post('/course', roleCheck('Admin'), (req, res) => {
-//     res.send('Course added successfully.');
-// });
+module.exports = router;

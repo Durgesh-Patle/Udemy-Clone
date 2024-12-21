@@ -6,6 +6,8 @@ const Context = createContext();
 function ContextProvider({ children }) {
     const [courses, setCourses] = useState([]);
 
+    const [cart, setCarts] = useState([]);
+
     useEffect(() => {
         const fetchCourses = async () => {
             try {
@@ -20,7 +22,7 @@ function ContextProvider({ children }) {
     }, []);
 
     return (
-        <Context.Provider value={{ courses }}>
+        <Context.Provider value={{ courses, cart, setCarts }}>
             {children}
         </Context.Provider>
     );
