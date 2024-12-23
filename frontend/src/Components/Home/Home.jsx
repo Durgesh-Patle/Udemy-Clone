@@ -1,6 +1,9 @@
 import React from 'react'
 import ImageSlider from '../HomeComponents/ImageSlider'
 import Courses from '../Courses/Courses'
+import LearningGoals from './LearningGoals'
+import Plans from './Plans'
+import Testimonials from './Testimonials'
 
 
 const Home = () => {
@@ -12,6 +15,9 @@ const Home = () => {
         <h2 className='text-[#6a6f73] text-xl'>From critical skills to technical topics, Udemy supports your professional development.</h2>
       </div>
       <Courses />
+      <LearningGoals />
+      <Plans />
+      <Testimonials />
     </div>
   )
 }

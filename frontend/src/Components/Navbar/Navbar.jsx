@@ -14,6 +14,7 @@ const Navbar = () => {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+    window.location.reload();
   };
 
   return (
@@ -60,6 +61,7 @@ const Navbar = () => {
           >
             Teach on Udemy
           </Link>
+          
           <Link to="/carts" className="relative">
             <MdOutlineShoppingCart className="text-2xl text-gray-700 cursor-pointer hover:text-blue-600" />
             {cart.length > 0 && (
@@ -133,6 +135,7 @@ const Navbar = () => {
               <Link
                 to="/api/login"
                 className="block py-2 text-gray-700 hover:text-blue-600"
+
               >
                 Log in
               </Link>

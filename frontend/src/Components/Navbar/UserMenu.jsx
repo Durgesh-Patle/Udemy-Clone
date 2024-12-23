@@ -11,7 +11,7 @@ const UserMenu = () => {
     const handleLogout = () => {
         localStorage.removeItem("token");
         setIsMenuOpen(false);
-        window.location.reload(); // Optional: Redirect or reload to update the UI
+        window.location.reload();
     };
 
     const getInitials = (name) => {

@@ -13,6 +13,7 @@ import ResetPass from './Components/Navbar/ResetPass'
 import CourseCreation from './Components/CourseCreationForm/CourseCreation'
 import CourseDetails from './Components/DetailsCourse/CourseDetails'
 import Carts from './Components/AddCarts/Carts'
+import ChatBot from './Components/ChatBot/ChatBot'
 
 function App() {
 
@@ -36,6 +37,8 @@ function App() {
         <Route path='/carts' element={<Carts />} />
 
         <Route path='/course-details/:id' element={<CourseDetails />} />
+
+        <Route path='/chat' element={<ChatBot />} />
       </Routes>
       <Footer />
     </>

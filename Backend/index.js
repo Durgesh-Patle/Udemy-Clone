@@ -5,15 +5,17 @@ let app = express();
 require('dotenv').config();
 let Sign = require('./Router/Sign');
 let Login = require('./Router/Login');
-let forget=require('./Router/Forget')
-let Reset=require('./Router/Reset')
-let Course=require('./Router/Course')
-let Status=require('./Router/StatusCheack')
-let Review=require('./Router/Review')
-let GetUser=require('./Router/Getuser')
-let AllCourse=require('./Router/AllCourse')
-let mainAdmin=require('./Router/MainAdmin')
-let cors=require('cors');
+let forget = require('./Router/Forget')
+let Reset = require('./Router/Reset')
+let Course = require('./Router/Course')
+let Status = require('./Router/StatusCheack')
+let Review = require('./Router/Review')
+let GetUser = require('./Router/Getuser')
+let AllCourse = require('./Router/AllCourse')
+let mainAdmin = require('./Router/MainAdmin')
+let Payment = require('./Router/Payment')
+let ChatBot = require('./Router/ChatBot')
+let cors = require('cors');
 
 app.use(cors());
 
@@ -41,28 +43,32 @@ app.use('/api', Sign)
 app.use('/api', Login)
 
 // Main-Admin
-app.use('/api',mainAdmin)
+app.use('/api', mainAdmin)
 
 // forget Password.
-app.use('/api',forget);
+app.use('/api', forget);
 
 // Reset Password.
-app.use('/api',Reset)
+app.use('/api', Reset)
 
 // Courses 
-app.use('/api',Course)
+app.use('/api', Course)
 
 // Status Cheack Pending Reject Approv
-app.use('/api',Status)
+app.use('/api', Status)
 
 // Revieww   Page..
-app.use('/api',Review)
+app.use('/api', Review)
 
 // All Users Seee. 
-app.use('/api',GetUser)
+app.use('/api', GetUser)
 
 // All AllCourses Seee. 
-app.use('/api',AllCourse)
+app.use('/api', AllCourse)
+
+app.use('/api', Payment)
+
+app.use('/api', ChatBot)
 
 
 // Admin Page.
@@ -76,7 +82,7 @@ app.use('/api',AllCourse)
 // })
 
 
-const port = process.env.PORT || 3000; 
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server started on Port ${port}`);
 });
