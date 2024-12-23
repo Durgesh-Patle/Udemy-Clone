@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 
 const UserMenu = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isToken, setIsToken] = useState(localStorage.getItem('token'));
     const menuRef = useRef(null);
 
     const toggleMenu = () => {
@@ -10,10 +9,21 @@ const UserMenu = () => {
     };
 
     const handleLogout = () => {
-        localStorage.setItem('token', '');
-        setIsToken('');
+        localStorage.removeItem("token");
         setIsMenuOpen(false);
+        window.location.reload(); // Optional: Redirect or reload to update the UI
     };
+
+    const getInitials = (name) => {
+        return name
+            .split(" ")
+            .map((word) => word[0])
+            .join("")
+            .toUpperCase();
+    };
+
+    const userName = "Durgesh Patle"; // Replace with dynamic data if available
+    const userEmail = "dpatle090096@gmail.com"; // Replace with dynamic data if available
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -21,28 +31,29 @@ const UserMenu = () => {
                 setIsMenuOpen(false);
             }
         };
-        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutside);
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
 
     return (
-        <div className="relative" ref={menuRef}>
+        <div className="relative mr-[28.8px]" ref={menuRef}>
             <button
                 onClick={toggleMenu}
                 className="flex items-center space-x-2 p-2 border rounded-full hover:bg-gray-100"
+                aria-expanded={isMenuOpen}
+                aria-label="User menu"
             >
                 <div className="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center">
-                    DP
+                    {getInitials(userName)}
                 </div>
                 <div className="text-left">
-                    <p className="text-sm font-semibold">Durgesh Patle</p>
-                    <p className="text-xs text-gray-500">dpatle090096@gmail.com</p>
+                    <p className="text-sm font-semibold">{userName}</p>
+                    <p className="text-xs text-gray-500">{userEmail}</p>
                 </div>
             </button>
 
-            {/* Dropdown Menu */}
             {isMenuOpen && (
                 <div className="absolute left-0 mt-2 w-72 bg-white border rounded-lg shadow-lg z-50">
                     <ul className="flex flex-col divide-y divide-gray-200">

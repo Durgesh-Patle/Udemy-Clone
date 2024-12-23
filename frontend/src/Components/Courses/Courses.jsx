@@ -60,9 +60,6 @@ const Courses = () => {
                                 <video
                                     src={course?.videos[0]}
                                     alt={course.title}
-                                    // onError={(e) =>
-                                    //     (e.target.src = "path/to/placeholder-image.jpg")
-                                    // }
                                     className="w-full h-36 object-cover"
                                     controls
                                 />
@@ -92,6 +89,7 @@ const Courses = () => {
                                         </span>
                                     </div>
                                 </div>
+                                
                             </div>
                         ))}
                     </div>
