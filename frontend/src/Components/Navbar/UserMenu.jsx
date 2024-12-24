@@ -22,8 +22,8 @@ const UserMenu = () => {
             .toUpperCase();
     };
 
-    const userName = "Durgesh Patle"; // Replace with dynamic data if available
-    const userEmail = "dpatle090096@gmail.com"; // Replace with dynamic data if available
+    const userName = "Durgesh Patle";
+    const userEmail = "dpatle090096@gmail.com";
 
     useEffect(() => {
         const handleClickOutside = (event) => {

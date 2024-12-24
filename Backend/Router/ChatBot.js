@@ -2,16 +2,14 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const express = require("express");
 let router = express.Router();
 
-// Initialize the Generative AI client with your API key
 const genAI = new GoogleGenerativeAI({
-    apiKey: process.env.CHATBOT_KEY, // Replace with your actual API key
+    apiKey: process.env.CHATBOT_KEY, 
 });
 // console.log(genAI, "heheh");
 
 
-// Route to handle AI prompt
 router.post("/chat", async (req, res) => {
-    const { message } = req.body; // Get the messages from the request body
+    const { message } = req.body; 
     // console.log(req.body, "hehe");
 
     const genAI = new GoogleGenerativeAI(process.env.CHATBOT_KEY);

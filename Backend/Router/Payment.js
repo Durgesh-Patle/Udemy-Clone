@@ -1,13 +1,13 @@
 let express = require('express');
 let router = express.Router();
 
-let stripe = require('stripe')(process.env.PUBLISHABLE_KEY)
+let stripe = require('stripe')(process.env.SECRET_KEY)
 
 router.post('/payment', async (req, res) => {
     try {
         const { items, totalAmount } = req.body;
 
-        console.log(items);
+        // console.log(items);
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
@@ -15,15 +15,15 @@ router.post('/payment', async (req, res) => {
                 price_data: {
                     currency: "inr",
                     product_data: {
-                        name: 'book',
+                        name: item.title,
                     },
-                    unit_amount: item.price * 100, // Convert to cents
+                    unit_amount: item.price * 100,
                 },
                 quantity: 1,
             })),
             mode: "payment",
-            success_url: "http://localhost:8000/success",
-            cancel_url: "http://localhost:8000/cancel",
+            success_url: "http://localhost:5173/success",
+            cancel_url: "http://localhost:5173/cancel",
         });
 
         res.json({ id: session.id });

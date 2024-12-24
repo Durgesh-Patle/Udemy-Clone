@@ -22,9 +22,12 @@ const LoginPage = () => {
 
         try {
             const res = await axios.post('http://localhost:8000/api/login', input);
+            console.log(res);
+            
             if (res.status === 200) {
                 localStorage.setItem('token', res.data.token);
                 navigate('/');
+                window.location.reload();
             } else {
                 console.log(res.message);
             }
@@ -47,7 +50,7 @@ const LoginPage = () => {
                         className="w-full h-auto object-contain"
                     />
                 </div>
-             
+
                 <div className="p-8">
                     <h2 className="text-2xl text-center font-semibold mb-4 text-gray-700">
                         Log in to continue your learning journey
@@ -58,7 +61,7 @@ const LoginPage = () => {
                             id="email"
                             placeholder="Email"
                             onChange={signHandler}
-                            value={input.Email} 
+                            value={input.Email}
                             name="Email"
                             className="mt-2 w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
                         />
@@ -74,7 +77,7 @@ const LoginPage = () => {
                         <Link
                             to="/api/forget-password"
                             className="text-blue-600 hover:text-blue-800 underline ml-1"
-                            onClick={navigat} 
+                            onClick={navigat}
                         >
                             Forgot Password?
                         </Link>
