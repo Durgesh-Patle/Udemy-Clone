@@ -1,8 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
+import Context from "../../Context";
+import { Link } from "react-router-dom";
 
 const UserMenu = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef(null);
+
+    let { cart } = useContext(Context);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -10,6 +14,8 @@ const UserMenu = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
+        localStorage.removeItem("userName");
+        localStorage.removeItem("userEmail");
         setIsMenuOpen(false);
         window.location.reload();
     };
@@ -22,8 +28,12 @@ const UserMenu = () => {
             .toUpperCase();
     };
 
-    const userName = "Durgesh Patle";
-    const userEmail = "dpatle090096@gmail.com";
+    const userName = localStorage.getItem('userName');
+    const userEmail = localStorage.getItem('userEmail');
+
+    const userRole = localStorage.getItem('userRole');
+
+    // console.log(userEmail, "Emailllllll");
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -55,26 +65,58 @@ const UserMenu = () => {
             </button>
 
             {isMenuOpen && (
-                <div className="absolute left-0 mt-2 w-72 bg-white border rounded-lg shadow-lg z-50">
+                <div className="absolute left-[-20%] mt-2 w-64 bg-white border rounded-lg shadow-lg z-50">
                     <ul className="flex flex-col divide-y divide-gray-200">
-                        <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">My learning</li>
-                        <li className="px-4 py-2 flex justify-between hover:bg-gray-100 cursor-pointer">
-                            <span>My cart</span>
-                            <span className="bg-purple-600 text-white text-xs px-2 py-0.5 rounded-full">0</span>
-                        </li>
-                        <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Wishlist</li>
-                        <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Teach on Udemy</li>
-                        <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Notifications</li>
-                        <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Messages</li>
-                        <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Account settings</li>
-                        <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Payment methods</li>
-                        <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Subscriptions</li>
-                        <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Purchase history</li>
+                        {userRole === "Student" && (
+                            <>
+                                <Link to={'/'} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">My learning</Link>
+                                <Link to={'/carts'} className="px-4 py-2 flex justify-between hover:bg-gray-100 cursor-pointer">
+                                    My cart
+                                </Link>
+                                <Link to={'/teaching'} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Teach on Udemy</Link>
+                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Notifications</li>
+                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Messages</li>
+                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Account settings</li>
+                            </>
+                        )
+
+                        }
+                        {(userRole === "Admin" || userRole === "Instructors") && (
+                            <>
+                                <Link
+                                    to="/add-course"
+                                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                                >
+                                    Add Course
+                                </Link>
+                                <Link
+                                    to="/dashboard"
+                                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                                >
+                                    Dashboard
+                                </Link>
+                                <Link
+                                    to="/users"
+                                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                                >
+                                    Users Profile
+                                </Link>
+                            </>
+                        )}
+
+                        {userRole === "Instructors" && (
+                            <Link
+                                to="/add-course"
+                                className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                            >
+                                Add Course
+                            </Link>
+                        )}
                         <li className="px-4 py-2 flex justify-between hover:bg-gray-100">
                             <span>Language</span>
                             <span className="text-gray-500">English 🌐</span>
                         </li>
-                        <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Edit profile</li>
+                        <Link to={'/edit-profile'} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Edit profile</Link>
                         <li
                             className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                             onClick={handleLogout}

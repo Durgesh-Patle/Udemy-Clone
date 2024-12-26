@@ -15,12 +15,14 @@ let AllCourse = require('./Router/AllCourse')
 let mainAdmin = require('./Router/MainAdmin')
 let Payment = require('./Router/Payment')
 let ChatBot = require('./Router/ChatBot')
+let upload = require('./Router/Upload')
 let cors = require('cors');
 
-app.use(cors());
-
 // Middleware
+app.use(cors());
 app.use(express.json());
+
+// Serve uploaded files
 
 const apiUrl = process.env.DATABASE_URL;
 
@@ -30,6 +32,8 @@ mongoose.connect(apiUrl).then(() => {
 }).catch((err) => {
     console.log('Error connecting to MongoDB:', err);
 });
+
+app.use("/uploads", express.static("uploads"));
 
 // Routes
 app.get('/', (req, res) => {
@@ -69,6 +73,8 @@ app.use('/api', AllCourse)
 app.use('/api', Payment)
 
 app.use('/api', ChatBot)
+
+app.use('/api', upload)
 
 
 // Admin Page.

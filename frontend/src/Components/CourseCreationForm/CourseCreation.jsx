@@ -25,21 +25,29 @@ const CourseCreation = () => {
         setFormData({ ...formData, [field]: values });
     };
 
-    const handleSubmit =async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         // console.log(formData,"Form Dattttttaaaa");
-        
-        let res =await axios.post('http://localhost:8000/api/add-course', formData);
+        let token = localStorage.getItem('token');
 
-        // console.log(res,"Resssssss");
-        // console.log("Submitted Form Data:", formData);
+        console.log(token, "tokennnnn..!@@");
+
+        try {
+            let res = await axios.post('http://localhost:8000/api/add-course', formData, {
+                headers: {
+                    Authorization: token,
+                },
+            });
+            console.log("Course created successfully:", res.data);
+        } catch (error) {
+            console.error("Error creating course:", error.response || error.message);
+        }
     };
 
     return (
         <div className="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-8 mt-10">
             <h2 className="text-2xl font-bold text-center mb-6">Create A New Course</h2>
             <form onSubmit={handleSubmit}>
-                {/* Title */}
                 <div className="mb-4">
                     {/* <label className="block text-gray-700 font-medium mb-2">Course Title</label> */}
                     <input
@@ -169,10 +177,10 @@ const CourseCreation = () => {
                 <div className="mb-4">
                     {/* <label className="block text-gray-700 font-medium mb-2">Resources (comma-separated URLs)</label> */}
                     <input
-                        type="text"
+                        type="file"
                         name="resources"
                         onChange={(e) => handleArrayChange(e, "resources")}
-                        placeholder="Enter resource URLs separated by commas"
+                        // placeholder="Enter resource URLs separated by commas"
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
                     />
                 </div>

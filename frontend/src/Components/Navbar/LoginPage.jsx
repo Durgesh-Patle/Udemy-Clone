@@ -22,10 +22,13 @@ const LoginPage = () => {
 
         try {
             const res = await axios.post('http://localhost:8000/api/login', input);
-            console.log(res);
+            // console.log(res.data, "reasuletttttttttt");
             
             if (res.status === 200) {
                 localStorage.setItem('token', res.data.token);
+                localStorage.setItem('userName', res.data.data.fullName);
+                localStorage.setItem('userEmail', res.data.data.Email);
+                localStorage.setItem('userRole', res.data.data.role);
                 navigate('/');
                 window.location.reload();
             } else {

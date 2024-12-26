@@ -17,8 +17,16 @@ import Carts from './Components/AddCarts/Carts';
 import ChatBot from './Components/ChatBot/ChatBot';
 import Success from './Components/PaymentStatus/Success';
 import Cancel from './Components/PaymentStatus/Cancel';
+import FileUpload from './Components/FileUploads/FileUpload';
+import PageNotFound from './Components/404Page.jsx/PageNotFound';
+import UsersProfile from './Components/AdminPannel/UsersProfile';
+import Dashbord from './Components/AdminPannel/Dashbord';
 
 function App() {
+  let a = false;
+
+  let token = localStorage.getItem('token');
+
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   const toggleChat = () => {
@@ -31,19 +39,32 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/api/login" element={<LoginPage />} />
+
         <Route path="/api/sign-up" element={<SignUpPage />} />
         <Route path="/pricing" element={<PricingPlans />} />
         <Route path="/business" element={<DemoForm />} />
         <Route path="/teaching" element={<HomeTeach />} />
         <Route path="/api/forget-password" element={<ForgotPass />} />
+
         <Route path="/add-course" element={<CourseCreation />} />
+
         <Route path="/reset-password/:token" element={<ResetPass />} />
         <Route path="/carts" element={<Carts />} />
         <Route path="/course-details/:id" element={<CourseDetails />} />
 
-{/* Payment Status */}
-        <Route path='/success' element={<Success />} />
+        <Route path="/upload" element={<FileUpload />} />
+
+        <Route path="*" element={<PageNotFound />} />
+
+        {/* Payment Status */}
+        <Route path='/success' element={a ? <Success /> : <Home />} />
         <Route path='/cancel' element={<Cancel />} />
+
+
+        {/* Admin Pannel */}
+        <Route path='/users' element={<UsersProfile />} />
+        <Route path='/dashboard' element={<Dashbord />} />
+        
       </Routes>
 
       <div className="fixed bottom-4 right-4">
