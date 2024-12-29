@@ -11,7 +11,7 @@ import DemoForm from './Components/Home/DemoForm';
 import HomeTeach from './Components/TechOnUdemy/HomeTeach';
 import ForgotPass from './Components/Navbar/ForgotPass';
 import ResetPass from './Components/Navbar/ResetPass';
-import CourseCreation from './Components/CourseCreationForm/CourseCreation';
+import CourseCreation from './Components/AdminPannel/CourseCreation';
 import CourseDetails from './Components/DetailsCourse/CourseDetails';
 import Carts from './Components/AddCarts/Carts';
 import ChatBot from './Components/ChatBot/ChatBot';
@@ -20,10 +20,11 @@ import Cancel from './Components/PaymentStatus/Cancel';
 import FileUpload from './Components/FileUploads/FileUpload';
 import PageNotFound from './Components/404Page.jsx/PageNotFound';
 import UsersProfile from './Components/AdminPannel/UsersProfile';
-import Dashbord from './Components/AdminPannel/Dashbord';
+import AdminPanel from './Components/AdminPannel/AdminPanel';
+import CourseStatus from './Components/AdminPannel/CourseStatus';
 
 function App() {
-  let a = false;
+  // let a = false;
 
   let token = localStorage.getItem('token');
 
@@ -38,9 +39,16 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/api/login" element={<LoginPage />} />
 
-        <Route path="/api/sign-up" element={<SignUpPage />} />
+        <Route path='/' element={<AdminPanel />} />
+
+        {!token &&
+          <Route path="/api/login" element={<LoginPage />} />
+        }
+
+        {!token &&
+          <Route path="/api/sign-up" element={<SignUpPage />} />
+        }
         <Route path="/pricing" element={<PricingPlans />} />
         <Route path="/business" element={<DemoForm />} />
         <Route path="/teaching" element={<HomeTeach />} />
@@ -57,14 +65,18 @@ function App() {
         <Route path="*" element={<PageNotFound />} />
 
         {/* Payment Status */}
-        <Route path='/success' element={a ? <Success /> : <Home />} />
+        <Route path='/success' element={<Success />} />
         <Route path='/cancel' element={<Cancel />} />
 
 
         {/* Admin Pannel */}
         <Route path='/users' element={<UsersProfile />} />
-        <Route path='/dashboard' element={<Dashbord />} />
-        
+        <Route path='/admin' element={<AdminPanel />} />
+
+
+        <Route path='/api/course-status' element={<CourseStatus />} />
+        {/* <Route path='/dashboard' element={<Dashbord />} /> */}
+
       </Routes>
 
       <div className="fixed bottom-4 right-4">

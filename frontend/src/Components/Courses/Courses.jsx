@@ -87,6 +87,9 @@ const Courses = () => {
                                         <span className="text-lg font-semibold text-gray-800">
                                             ₹{course.price}
                                         </span>
+                                        {/* <span className="text-lg font-semibold ml-32 text-black-300 bg-yellow-400 px-1 rounded-lg">
+                                            {course.status}
+                                        </span> */}
                                     </div>
                                 </div>
                                 

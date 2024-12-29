@@ -81,16 +81,10 @@ const UserMenu = () => {
                         )
 
                         }
-                        {(userRole === "Admin" || userRole === "Instructors") && (
+                        {userRole === "Admin" && (
                             <>
                                 <Link
-                                    to="/add-course"
-                                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                                >
-                                    Add Course
-                                </Link>
-                                <Link
-                                    to="/dashboard"
+                                    to="/admin"
                                     className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                                 >
                                     Dashboard
@@ -100,6 +94,12 @@ const UserMenu = () => {
                                     className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                                 >
                                     Users Profile
+                                </Link>
+                                <Link
+                                    to="/api/course-status"
+                                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                                >
+                                    Course Mannagement
                                 </Link>
                             </>
                         )}

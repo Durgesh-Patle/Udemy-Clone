@@ -5,14 +5,17 @@ const Context = createContext();
 
 function ContextProvider({ children }) {
     const [courses, setCourses] = useState([]);
-
+    const [pendingCourse, setPendingCourse] = useState([]);
     const [cart, setCarts] = useState([]);
 
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/all-course');
-                setCourses(response.data.course);
+                const res = await axios.get('http://localhost:8000/api/all-course');
+                const pendingCourses = res.data.course.filter((course) => course.status === "Pending");
+                setPendingCourse(pendingCourses);
+                const approvedCourses = res.data.course.filter((course) => course.status === "Approved");
+                setCourses(approvedCourses);
             } catch (error) {
                 console.error("Error fetching courses:", error);
             }
@@ -22,7 +25,7 @@ function ContextProvider({ children }) {
     }, []);
 
     return (
-        <Context.Provider value={{ courses, cart, setCarts }}>
+        <Context.Provider value={{ pendingCourse, courses, cart, setCarts }}>
             {children}
         </Context.Provider>
     );

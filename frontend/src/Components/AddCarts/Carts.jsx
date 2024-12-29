@@ -211,8 +211,9 @@ const Carts = () => {
 
     const handleRemove = (id) => {
         const updatedCart = cart.filter((item) => item.id !== id);
-        setCarts(updatedCart);
+        setCarts(updatedCart); // Updates the state with the filtered cart
     };
+
 
     const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
 

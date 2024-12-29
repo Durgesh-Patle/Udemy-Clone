@@ -3,14 +3,10 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
-    const fromData = {
-        Email: '',
-        Password: '',
-    };
+    const [input, setInput] = useState({ Email: '', Password: '' });
+    const [error, setError] = useState(null);
 
-    const [input, setInput] = useState(fromData);
-
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     function signHandler(e) {
         const { name, value } = e.target;
@@ -20,27 +16,36 @@ const LoginPage = () => {
     async function submithandler(e) {
         e.preventDefault();
 
+        if (!input.Email || !input.Password) {
+            setError("Email and Password are required.");
+            return;
+        }
+
         try {
             const res = await axios.post('http://localhost:8000/api/login', input);
-            // console.log(res.data, "reasuletttttttttt");
-            
+
             if (res.status === 200) {
-                localStorage.setItem('token', res.data.token);
-                localStorage.setItem('userName', res.data.data.fullName);
-                localStorage.setItem('userEmail', res.data.data.Email);
-                localStorage.setItem('userRole', res.data.data.role);
-                navigate('/');
-                window.location.reload();
+                const { token, data } = res.data;
+                const { fullName, Email, role } = data;
+
+                localStorage.setItem('token', token);
+                localStorage.setItem('userName', fullName);
+                localStorage.setItem('userEmail', Email);
+                localStorage.setItem('userRole', role);
+
+                if (role === "Admin" || role === "Instructors") {
+                    navigate('/admin');
+                } else if (role === "Student") {
+                    navigate('/');
+                } else {
+                    navigate('/');
+                }
             } else {
-                console.log(res.message);
+                setError(res.message || "Login failed.");
             }
         } catch (error) {
-            console.error('Error logging in:', error);
+            setError(error.response?.data?.message || "An error occurred. Please try again.");
         }
-    }
-
-    function navigat() {
-        navigate('/api/forget-password');
     }
 
     return (
@@ -58,6 +63,7 @@ const LoginPage = () => {
                     <h2 className="text-2xl text-center font-semibold mb-4 text-gray-700">
                         Log in to continue your learning journey
                     </h2>
+                    {error && <p className="text-red-500 text-center">{error}</p>}
                     <form onSubmit={submithandler}>
                         <input
                             type="email"
@@ -80,7 +86,6 @@ const LoginPage = () => {
                         <Link
                             to="/api/forget-password"
                             className="text-blue-600 hover:text-blue-800 underline ml-1"
-                            onClick={navigat}
                         >
                             Forgot Password?
                         </Link>
@@ -111,7 +116,6 @@ const LoginPage = () => {
                             Sign up
                         </Link>
                     </div>
-                    <hr />
                     <hr />
                     <div className="text-center text-sm text-gray-500">
                         <Link to="/" className="text-purple-600 underline">
