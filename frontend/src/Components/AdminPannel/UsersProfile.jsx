@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { FaRegCircleUser } from "react-icons/fa6";
 
-
 const UsersProfile = () => {
     let [data, setData] = useState([]);
     let token = localStorage.getItem('token');
@@ -10,11 +9,10 @@ const UsersProfile = () => {
     useEffect(async () => {
         let res = await axios.get('http://localhost:8000/api/users', {
             headers: {
-                Authorization: `${token}`,
+                Authorization: token,
             },
         });
         setData(res.data)
-        return destroy;
     }, []);
 
     return (

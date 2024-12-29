@@ -16,6 +16,7 @@ const UserMenu = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("userName");
         localStorage.removeItem("userEmail");
+        localStorage.removeItem("userRole");
         setIsMenuOpen(false);
         window.location.reload();
     };

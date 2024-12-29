@@ -1,115 +1,65 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaTachometerAlt, FaChalkboardTeacher, FaListAlt, FaSignOutAlt } from 'react-icons/fa';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import AdminLayout from './AdminLayout';
 
 const AdminPanel = () => {
-  const [activePage, setActivePage] = useState('Dashboard');
-  const navigate = useNavigate();
-
-  const handleNavigate = (page) => {
-    setActivePage(page);
-    switch (page) {
-      case 'Dashboard':
-        navigate('/admin');
-        break;
-      case 'Add Course':
-        navigate('/add-course');
-        break;
-      case 'Manage Courses':
-        navigate('/api/course-status');
-        break;
-      default:
-        navigate('/');
-    }
-  };
-
   return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
-      <div className="w-64 bg-gray-800 text-white p-6 flex flex-col">
-        <h2 className="text-2xl font-bold mb-8">Admin Panel</h2>
-        <ul className="space-y-4">
-          <li
-            className={`flex items-center p-3 cursor-pointer rounded-md transition-all duration-200 ${
-              activePage === 'Dashboard' ? 'bg-gray-600' : 'hover:bg-gray-700'
-            }`}
-            onClick={() => handleNavigate('Dashboard')}
-          >
-            <FaTachometerAlt className="mr-3" /> Dashboard
-          </li>
-          <li
-            className={`flex items-center p-3 cursor-pointer rounded-md transition-all duration-200 ${
-              activePage === 'Add Course' ? 'bg-gray-600' : 'hover:bg-gray-700'
-            }`}
-            onClick={() => handleNavigate('Add Course')}
-          >
-            <FaChalkboardTeacher className="mr-3" /> Add Course
-          </li>
-          <li
-            className={`flex items-center p-3 cursor-pointer rounded-md transition-all duration-200 ${
-              activePage === 'Manage Courses' ? 'bg-gray-600' : 'hover:bg-gray-700'
-            }`}
-            onClick={() => handleNavigate('Manage Courses')}
-          >
-            <FaListAlt className="mr-3" /> Manage Courses
-          </li>
-        </ul>
-        <button
-          className="mt-auto flex items-center p-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition-all duration-200"
-          onClick={() => navigate('/login')}
-        >
-          <FaSignOutAlt className="mr-3" /> Logout
-        </button>
-      </div>
+    <div className="flex min-h-screen bg-gray-50">
+      <AdminLayout />
 
-      {/* Content */}
-      <div className="flex-1 p-8 bg-gray-100">
-        <h1 className="text-3xl font-semibold mb-6">{activePage}</h1>
-        <div className="bg-white p-6 rounded-md shadow-md">
-          {/* Dynamic content for each page */}
-          {activePage === 'Dashboard' && <p>Welcome to the Admin Dashboard!</p>}
-          {activePage === 'Add Course' && (
-            <div>
-              <h2 className="text-2xl mb-4">Add New Course</h2>
-              <form className="space-y-4">
-                <div>
-                  <label className="block text-gray-700">Course Title</label>
-                  <input
-                    type="text"
-                    placeholder="Enter course title"
-                    className="w-full p-2 border rounded-md"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700">Description</label>
-                  <textarea
-                    placeholder="Enter course description"
-                    className="w-full p-2 border rounded-md"
-                  ></textarea>
-                </div>
-                <div>
-                  <label className="block text-gray-700">Price</label>
-                  <input
-                    type="number"
-                    placeholder="Enter course price"
-                    className="w-full p-2 border rounded-md"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-                >
-                  Submit
-                </button>
-              </form>
-            </div>
-          )}
-          {activePage === 'Manage Courses' && (
-            <div>
-              <h2 className="text-2xl mb-4">Manage Courses</h2>
-              <p>Here you can view, edit, and delete courses.</p>
-            </div>
-          )}
+      <div className="flex-1 overflow-y-scroll">
+        <div className="flex flex-col items-center p-6">
+          {/* Header Section */}
+          <header className="text-center w-full max-w-4xl mb-12">
+            <h1 className="text-5xl font-extrabold text-blue-600">Admin Dashboard</h1>
+            <p className="text-lg text-gray-700 mt-4">
+              Empower your administration with seamless tools and efficient management.
+            </p>
+          </header>
+
+          {/* Action Cards Section */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl">
+            <Link to="/add-course">
+              <div className="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition duration-300">
+                <h3 className="text-xl font-semibold text-blue-500">Create Course</h3>
+                <p className="text-gray-600 mt-2">
+                  Add new courses to your platform effortlessly and efficiently.
+                </p>
+              </div>
+            </Link>
+
+            <Link to="/api/course-status">
+              <div className="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition duration-300">
+                <h3 className="text-xl font-semibold text-green-500">Manage Courses</h3>
+                <p className="text-gray-600 mt-2">
+                  Update, delete, or view all available courses with ease.
+                </p>
+              </div>
+            </Link>
+
+            <Link to="/users">
+              <div className="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition duration-300">
+                <h3 className="text-xl font-semibold text-purple-500">Manage Users</h3>
+                <p className="text-gray-600 mt-2">
+                  Handle user accounts and permissions in a few clicks.
+                </p>
+              </div>
+            </Link>
+
+            <Link to="/admin">
+              <div className="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition duration-300">
+                <h3 className="text-xl font-semibold text-red-500">View Reports</h3>
+                <p className="text-gray-600 mt-2">
+                  Analyze data and generate insightful reports for decision-making.
+                </p>
+              </div>
+            </Link>
+          </div>
+
+          {/* Footer Section */}
+          <footer className="mt-12 text-center text-gray-600 text-sm">
+            <p>&copy; 2024 Admin Panel. All rights reserved.</p>
+          </footer>
         </div>
       </div>
     </div>

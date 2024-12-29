@@ -35,10 +35,15 @@ const LoginPage = () => {
 
                 if (role === "Admin" || role === "Instructors") {
                     navigate('/admin');
+                    window.location.reload();
                 } else if (role === "Student") {
                     navigate('/');
+                    window.location.reload();
+
                 } else {
                     navigate('/');
+                    window.location.reload();
+
                 }
             } else {
                 setError(res.message || "Login failed.");
