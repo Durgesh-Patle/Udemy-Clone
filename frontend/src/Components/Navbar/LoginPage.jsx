@@ -17,7 +17,7 @@ const LoginPage = () => {
         e.preventDefault();
 
         if (!input.Email || !input.Password) {
-            setError("Email and Password are required.");
+            setError("Email and Password are required");
             return;
         }
 
@@ -39,11 +39,9 @@ const LoginPage = () => {
                 } else if (role === "Student") {
                     navigate('/');
                     window.location.reload();
-
                 } else {
                     navigate('/');
                     window.location.reload();
-
                 }
             } else {
                 setError(res.message || "Login failed.");

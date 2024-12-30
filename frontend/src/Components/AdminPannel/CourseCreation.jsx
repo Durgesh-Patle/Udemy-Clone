@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CourseCreation = () => {
     const [formData, setFormData] = useState({
@@ -14,6 +15,8 @@ const CourseCreation = () => {
         videos: [],
         resources: [],
     });
+
+    let navigate=useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,7 +33,7 @@ const CourseCreation = () => {
         // console.log(formData,"Form Dattttttaaaa");
         let token = localStorage.getItem('token');
 
-        console.log(token, "tokennnnn..!@@");
+        // console.log(token, "tokennnnn..!@@");
 
         try {
             let res = await axios.post('http://localhost:8000/api/add-course', formData, {
@@ -38,7 +41,10 @@ const CourseCreation = () => {
                     Authorization: token,
                 },
             });
-            console.log("Course created successfully:", res.data);
+            if (res.status === 201) {
+                console.log("Course created successfully:", res.data);
+                navigate('/admin')
+            }
         } catch (error) {
             console.error("Error creating course:", error.response || error.message);
         }

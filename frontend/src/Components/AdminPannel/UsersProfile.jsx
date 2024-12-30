@@ -3,17 +3,49 @@ import React, { useEffect, useState } from 'react'
 import { FaRegCircleUser } from "react-icons/fa6";
 
 const UsersProfile = () => {
-    let [data, setData] = useState([]);
-    let token = localStorage.getItem('token');
+    const [data, setData] = useState([]);
+    const token = localStorage.getItem("token");
+    // console.log(token ,"Admin tokennnnnn");
 
-    useEffect(async () => {
-        let res = await axios.get('http://localhost:8000/api/users', {
-            headers: {
-                Authorization: token,
-            },
-        });
-        setData(res.data)
-    }, []);
+    useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const res = await axios.get("http://localhost:8000/api/users", {
+                    headers: {
+                        Authorization: token,
+                    },
+                });
+                setData(res.data.students);
+                console.log(res.data.students, "User Profileeeee");
+            } catch (error) {
+                console.error("Error fetching courses:", error);
+            }
+        };
+
+        fetchCourses();
+    }, [token]);
+
+
+    const handleDelete = async (id) => {
+        try {
+            const res = await axios.post(
+                "http://localhost:8000/api/users/remove",
+                { _id: id },
+                {
+                    headers: {
+                        Authorization: token,
+                    },
+                }
+            );
+
+            if (res.status === 200) {
+                setData((prevData) => prevData.filter((user) => user._id !== id));
+                console.log("User deleted successfully:", id);
+            }
+        } catch (error) {
+            console.error("Error deleting user:", error);
+        }
+    };
 
     return (
         <div className="max-w-full mx-auto p-4 bg-gray-100 rounded shadow-md">
@@ -27,13 +59,14 @@ const UsersProfile = () => {
                             <FaRegCircleUser />
                         </div>
                         <div>
-                            <h1 className="text-lg font-semibold text-gray-800">{val.username}</h1>
-                            <p className="text-sm text-gray-600">{val.email}</p>
+                            <h1 className="text-lg font-semibold text-gray-800">{val.fullName}</h1>
+                            <p className="text-sm text-gray-600">{val.Email}</p>
+                            {/* <p className="text-sm text-gray-600">{val._id}</p> */}
                         </div>
                     </div>
                     <button
                         className="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition duration-200"
-                    // onClick={() => handleDelete(val.id)} // Replace handleDelete with your delete function
+                        onClick={() => handleDelete(val._id)}
                     >
                         Delete User
                     </button>

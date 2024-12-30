@@ -9,6 +9,7 @@ import UserMenu from "./UserMenu";
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const token = localStorage.getItem("token");
+  const userRole = localStorage.getItem("userRole");
 
   let { cart } = useContext(Context);
 
@@ -21,13 +22,17 @@ const Navbar = () => {
     <nav className="bg-white shadow-md">
       <div className="container mx-auto flex items-center justify-between p-4">
         <div className="flex items-center gap-6">
-          <Link to="/">
-            <img
-              src="logo-udemy.svg"
-              alt="Udemy Logo"
-              className="h-8 cursor-pointer"
-            />
-          </Link>
+          {/* {userRole === "Admin" &&
+            <> */}
+              <Link to="/">
+                <img
+                  src="logo-udemy.svg"
+                  alt="Udemy Logo"
+                  className="h-8 cursor-pointer"
+                />
+              </Link>
+            {/* </>
+          } */}
           <p className="text-gray-700 font-medium cursor-pointer hover:text-gray-900">
             Categories
           </p>
@@ -61,7 +66,7 @@ const Navbar = () => {
           >
             Teach on Udemy
           </Link>
-          
+
           <Link to="/carts" className="relative">
             <MdOutlineShoppingCart className="text-2xl text-gray-700 cursor-pointer hover:text-blue-600" />
             {cart.length > 0 && (

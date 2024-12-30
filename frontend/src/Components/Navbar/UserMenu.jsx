@@ -14,9 +14,10 @@ const UserMenu = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-        localStorage.removeItem("userName");
         localStorage.removeItem("userEmail");
         localStorage.removeItem("userRole");
+        localStorage.removeItem("userName");
+        Navigate("/")
         setIsMenuOpen(false);
         window.location.reload();
     };

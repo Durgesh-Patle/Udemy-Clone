@@ -49,9 +49,9 @@ const DemoForm = () => {
             {/* Row 1 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                {/* <label className="block text-sm font-medium text-gray-700">
                   First Name *
-                </label>
+                </label> */}
                 <input
                   type="text"
                   className="mt-1 block w-full py-2  px-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
@@ -60,9 +60,9 @@ const DemoForm = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                {/* <label className="block text-sm font-medium text-gray-700">
                   Last Name *
-                </label>
+                </label> */}
                 <input
                   type="text"
                   className="mt-1 block w-full border py-2  px-2 border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
@@ -74,9 +74,9 @@ const DemoForm = () => {
 
             {/* Row 2 */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              {/* <label className="block text-sm font-medium text-gray-700">
                 Work Email *
-              </label>
+              </label> */}
               <input
                 type="email"
                 className="mt-1 block w-full py-2  px-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
@@ -87,9 +87,9 @@ const DemoForm = () => {
 
             {/* Row 3 */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              {/* <label className="block text-sm font-medium text-gray-700">
                 Phone Number *
-              </label>
+              </label> */}
               <input
                 type="tel"
                 className="mt-1 block w-full py-2  px-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
@@ -100,9 +100,9 @@ const DemoForm = () => {
 
             {/* Row 4 */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              {/* <label className="block text-sm font-medium text-gray-700">
                 Where are you located? *
-              </label>
+              </label> */}
               <select
                 className="mt-1 py-2  px-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
                 required
@@ -116,9 +116,9 @@ const DemoForm = () => {
 
             {/* Additional Fields */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              {/* <label className="block text-sm font-medium text-gray-700">
                 Company Name *
-              </label>
+              </label> */}
               <input
                 type="text"
                 className="mt-1 block py-2  px-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
@@ -129,9 +129,9 @@ const DemoForm = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                {/* <label className="block text-sm font-medium text-gray-700">
                   Company Size *
-                </label>
+                </label> */}
                 <select
                   className="mt-1 py-2  px-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
                   required
@@ -143,9 +143,9 @@ const DemoForm = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                {/* <label className="block text-sm font-medium text-gray-700">
                   Number of learners *
-                </label>
+                </label> */}
                 <select
                   className="mt-1 block w-full py-2  px-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
                   required
@@ -160,9 +160,9 @@ const DemoForm = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                {/* <label className="block text-sm font-medium text-gray-700">
                   Job Title *
-                </label>
+                </label> */}
                 <input
                   type="text"
                   className="mt-1 block w-full py-2  px-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
@@ -171,9 +171,9 @@ const DemoForm = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                {/* <label className="block text-sm font-medium text-gray-700">
                   Job Level *
-                </label>
+                </label> */}
                 <select
                   className="mt-1 block py-2  px-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
                   required
@@ -187,9 +187,9 @@ const DemoForm = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              {/* <label className="block text-sm font-medium text-gray-700">
                 What are your organization’s training needs? (Optional)
-              </label>
+              </label> */}
               <textarea
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
                 rows="3"

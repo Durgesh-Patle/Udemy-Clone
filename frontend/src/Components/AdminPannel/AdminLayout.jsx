@@ -6,6 +6,9 @@ const AdminLayout = ({children}) => {
     let Navigate = useNavigate();
     let  LogOut= ()=>{
         localStorage.removeItem("token");
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("userRole");
+        localStorage.removeItem("userName");
         Navigate("/")
         window.location.reload();
     }

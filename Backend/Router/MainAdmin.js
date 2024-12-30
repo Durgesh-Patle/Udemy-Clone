@@ -5,7 +5,7 @@ const User = require('../model/User');
 
 router.post('/main-admin', Role('Admin'), tokenCheack, protect, async (req, res) => {
     let { id, Urole } = req.body;
-    console.log(id,Urole, "Role main Adminnn");
+    // console.log(id,Urole, "Role main Adminnn");
 
     let roleUser = await User.findById(id);
 

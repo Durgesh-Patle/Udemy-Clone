@@ -16,6 +16,7 @@ let mainAdmin = require('./Router/MainAdmin')
 let Payment = require('./Router/Payment')
 let ChatBot = require('./Router/ChatBot')
 let upload = require('./Router/Upload')
+let Delete = require('./Router/Delete')
 let cors = require('cors');
 
 // Middleware
@@ -70,11 +71,17 @@ app.use('/api', GetUser)
 // All AllCourses Seee. 
 app.use('/api', AllCourse)
 
+// payment Integration
 app.use('/api', Payment)
 
+// ChatBot Aii..
 app.use('/api', ChatBot)
 
+// Multer Uploads Files..
 app.use('/api', upload)
+
+// Delete user
+app.use('/api', Delete)
 
 
 // Admin Page.

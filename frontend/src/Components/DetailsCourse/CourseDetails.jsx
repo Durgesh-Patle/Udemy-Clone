@@ -8,6 +8,8 @@ const CourseDetails = () => {
 
     const showData = courses.find((_, index) => index === Number(id));
 
+    let token = localStorage.getItem("token")
+
     if (!showData) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -16,9 +18,23 @@ const CourseDetails = () => {
         );
     }
 
+
     function addCart() {
-        setCarts((prevCarts) => [...prevCarts, showData]);
+        const userToken = localStorage.getItem('token');
+
+        if (!userToken) {
+            alert("Please log in to add items to the cart.");
+        } else {
+            setCarts((prevCarts) => {
+                if (prevCarts.some(cartItem => cartItem.id === showData.id)) {
+                    alert("Item already in the cart.");
+                    return prevCarts;
+                }
+                return [...prevCarts, showData];
+            });
+        }
     }
+
 
     const topics = [
         "ChatGPT: Create content, synthesize information, and learn faster than ever with effective prompt engineering!",

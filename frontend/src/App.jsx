@@ -28,6 +28,8 @@ function App() {
 
   let token = localStorage.getItem('token');
 
+  let userRole = localStorage.getItem('userRole');
+
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   const toggleChat = () => {
@@ -110,7 +112,7 @@ function App() {
         )}
       </div>
 
-      <Footer />
+      {userRole !== "Admin" && <Footer />}
     </div>
   );
 }
